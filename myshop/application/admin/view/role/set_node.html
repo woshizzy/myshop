@@ -1,0 +1,72 @@
+{extend name="public:base" /}
+{block name="main"}
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">安居客控制台</li>
+            <li class="active">房源管理</li>
+            <li class="active">账号设置</li>
+            <li class="active">添加账号</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+
+    <div class="page-content">
+        <div class="row">
+
+
+            <div class="col-xs-12">
+ <form class="form-horizontal" role="form" method='post' action="{:url('role/setNode')}" >
+                <!-- <form class="form-horizontal" role="form" method='post' action="{:url('role/setNode')}"> -->
+                <input type="hidden" name="id" value="<?php echo input('id') ?>"  />
+<?php foreach($node_tree as $val):?>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+
+  <input type="checkbox" name="node_id[]" value="<?=$val['id']?>"<?= isset($role_node[$val['id']]) ? 'checked' : ''; ?>/><?=$val['node_name']?></label>
+<?php foreach($val['child'] as $v):?>
+                        <div class="col-sm-9">
+                            <input type="checkbox" name='node_id[]' value="<?=$v['id']?>" <?= isset($role_node[$v['id']]) ? 'checked' : ''; ?> /> <?=$v['node_name']?>
+                        </div>
+                         <?php endforeach; ?>
+                    </div>
+  <?php endforeach; ?>
+
+
+                         <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info" type="submit">
+                                <i class="icon-ok bigger-110"></i>
+                                增加
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="icon-undo bigger-110"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hr hr-24"></div>
+
+
+
+                </form>
+            </div><!-- /span -->
+        </div><!-- /row -->
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+{/block}

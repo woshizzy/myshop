@@ -1,0 +1,194 @@
+{extend name="public:base" /}
+{block name="main"}
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+        </ul><!-- .breadcrumb -->
+    </div>
+
+    <div class="page-content">
+        <div class="row">
+
+
+            <div class="col-xs-12">
+
+                <form class="form-horizontal" role="form" method='post' action="{:url('attr/insert')}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 属性名称 </label>
+
+                        <div class="col-sm-9">
+                            <select name="" id="select_attr">
+                                <option value="">请选择</option>
+                                <?php foreach ($type as $k =>$v ) : ?>
+                                    <option value="<?php echo $v['type_id'] ?>"><?php echo $v['type_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                   <!--  <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 品牌图片 </label>
+
+                        <div class="col-sm-9">
+                            <input type="file" name='file' id="form-field-2" placeholder="品牌图片" class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div> -->
+
+
+               <!--      <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 模式 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" name='input_mode' id="form-field-2" placeholder="模式" class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 参数 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" name='param' id="form-field-2" placeholder="参数" class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 规格 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" name='value' id="form-field-2" placeholder="规格" class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 缺省值 </label>
+
+                        <div class="col-sm-9">
+                            <input type="text" name='def_value' id="form-field-2" placeholder="缺省值" class="col-xs-10 col-sm-5" />
+                        </div>
+                    </div> -->
+
+<div id="a">
+
+</div>
+
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+<input type="submit" value="添加" />
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="icon-undo bigger-110"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hr hr-24"></div>
+
+
+
+                </form>
+            </div><!-- /span -->
+        </div><!-- /row -->
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    $('#select_attr').change(function  () {
+        // alert(1);
+        var url = "{:url('goodsattr/gettype')}";
+        // alert(url);
+        var id = $(this).val();
+        // alert(id);
+        $.ajax({
+            url:url,
+            data:{id:id},
+            type:'get',
+            dataType:'json',
+            success:function  (msg)
+            {
+                if (msg.cod==1)
+                {
+                        alert(msg.message);
+                }
+                else
+                {
+                    viewParam(msg.res);
+                }
+
+
+            }
+        })
+    })
+    function viewParam (data)
+    {
+        // alert(1);
+        $.each(data, function()
+        {
+            var div = $('<div class="form-group"></div>');
+            div.append('<label class="col-sm-3 control-label no-padding-right" for="form-field-1">'+this.attr_name+' </label>');
+            var div2 = $('<div class="col-sm-9"></div>');
+            console.log(data);
+            if (this.def_value == 1)
+            {
+                if (this.attr_type == 1)
+                {
+                    div2.append('<input type="text" name="goods_attr['+this.attr_id+']"/>')
+                }
+                else
+                {
+                    div2.append('<input type="text" name="goods_attr['+this.attr_id+'][]"/>')
+                    div2.append('<input type="text" name="goods_attr_price['+this.attr_id+'][]"/>')
+                }
+            }
+            else
+            {
+                // $.each(this.value.split('|'),function(k,v){
+                //    // alert(v)
+                //    select = $(' <select name="attr_value" id="select_attr"></select>');
+                //    select.append('<option value="'+v+'">'+v+'</option>');
+
+
+                // })
+// alert(1);
+                if (this.attr_type == 1)
+                {
+                    alert(2);
+                    var select = ('<select name="goods_attr['+this.attr_id+']" id=""></select>');
+                }
+                else
+                {
+                   var select = ('<select name="goods_attr['+this.attr_id+'][]" id=""></select>');
+                }
+
+                select.append('<option value="">请选择</option>');
+                $.each(this.value.split('|'), function(k, v)
+                {
+                    alert(v);
+                    select.append('<option value="'+v+'">'+v+'</option>');
+                });
+                div2.append(select);
+
+            }
+            //div.append(select);
+            div.append(div2);
+            $('.form-horizontal').append(div);
+        });
+    }
+</script>
+
+{/block}

@@ -1,0 +1,69 @@
+    {extend name="public:base"/}
+{block name="main"}
+<style>
+    .layui-laypage-curr em {margin-right: 10px;font-style: normal;}
+    a{margin-right: 10px;}
+     .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}
+    .pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}
+    .pagination .active{background-color: #dd1a20;color: #fff;}
+    .pagination .disabled{color:#aaa;}
+</style>
+    <div class="page-content">
+
+                            <div class="row">
+
+
+                                    <div class="col-xs-12">
+
+
+
+                                        <div class="table-responsive">
+                                            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center">
+                                                            <label>
+                                                                <input type="checkbox" class="ace" />
+                                                                <span class="lbl"></span>
+                                                            </label>
+                                                        </th>
+                                                        <th>编号</th>
+                                                        <th>类型名</th>
+                                                         <th>分类</th>
+
+                                                        <th>操作</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {volist name="arr" id="vo"}
+                                                    <tr>
+                                                        <td class="center">
+                                                            <label>
+                                                                <input type="checkbox" class="ace" />
+                                                                <span class="lbl"></span>
+                                                            </label>
+                                                        </td>
+
+                                                        <td>{$vo.type_id}</td>
+                                                        <td>{$vo.type_name}</td>
+
+
+                                                         <td>{$vo.cate_name}</td>\
+
+                                                         <td><a href="update?id={$vo.type_id}">修改</a>||<a href="delete?id={$vo.type_id}">删除</a>
+                                                        </td>
+
+                                                    </tr>
+                                                {/volist}
+
+
+                                                </tbody>
+                                            </table>
+                                            <div>{$arr->render()}</div>
+                                        </div><!-- /.table-responsive -->
+                                    </div><!-- /span -->
+                                </div><!-- /row -->
+
+                    </div><!-- /.page-content -->
+{/block}

@@ -1,0 +1,64 @@
+    {extend name="public:base"/}
+{block name="main"}
+
+    <div class="page-content">
+    <a href="{:url('cate/index')}">添加</a>
+                            <div class="row">
+
+
+                                    <div class="col-xs-12">
+
+
+
+                                        <div class="table-responsive">
+                                            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center">
+                                                            <label>
+                                                                <input type="checkbox" class="ace" />
+                                                                <span class="lbl"></span>
+                                                            </label>
+                                                        </th>
+                                                        <th>编号</th>
+                                                        <th>分类名</th>
+                                                        <th>排序</th>
+                                                        <th>时间</th>
+                                                        <th>操作</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {volist name="arr" id="vo"}
+                                                    <tr>
+                                                        <td class="center">
+                                                            <label>
+                                                                <input type="checkbox" class="ace" />
+                                                                <span class="lbl"></span>
+                                                            </label>
+                                                        </td>
+
+                                                        <td>{$vo.cate_id}</td>
+                                                        <td>{$vo.cate_name}</td>
+                                                        <td>{$vo.sort}</td>
+                                                        <td>{$vo.time}</td>
+
+                                                        <td>
+                                                        <!-- <button class="btn">编辑</button>
+                                                        <button class="btn btn-danger">删除</button> -->
+
+                                                         <a href="update?id={$vo.cate_id}">修改</a>||<a href="delete?id={$vo.cate_id}">删除</a>
+                                                        </td>
+
+                                                    </tr>
+                                                {/volist}
+
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.table-responsive -->
+                                    </div><!-- /span -->
+                                </div><!-- /row -->
+
+                    </div><!-- /.page-content -->
+{/block}
